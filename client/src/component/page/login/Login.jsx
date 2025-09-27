@@ -52,7 +52,7 @@ const Login = () => {
     return (
         <>
             <Helmet>
-                <title>CinemaHub | Login</title>
+                <title>Easy Movie Ticket | Login</title>
             </Helmet>
             <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 {/* Background with movie-themed gradient */}
@@ -71,7 +71,7 @@ const Login = () => {
                         <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                             Welcome Back!
                         </h1>
-                        <p className="text-gray-300 text-lg">Sign in to your CinemaHub account</p>
+                        <p className="text-gray-300 text-lg">Sign in to your Easy Movie Ticket account</p>
                     </div>
 
                     {/* Form */}
@@ -114,8 +114,8 @@ const Login = () => {
                             <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-4">
                                 <h4 className="text-blue-300 font-medium mb-2">Demo Credentials:</h4>
                                 <div className="space-y-1 text-sm text-blue-200">
-                                    <p><strong>User:</strong> john@example.com / password123</p>
-                                    <p><strong>Admin:</strong> admin@example.com / admin123</p>
+                                    <p><strong>User:</strong> ramjan@example.com / password123</p>
+                                    <p><strong>Admin:</strong> ramjanKhan@example.com / admin123</p>
                                 </div>
                             </div>
 

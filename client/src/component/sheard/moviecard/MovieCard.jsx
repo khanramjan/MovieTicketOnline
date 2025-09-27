@@ -4,21 +4,22 @@ import { Helmet } from 'react-helmet-async';
 
 const MovieCard = ({ movies }) => {
     return (
-        <div className="container mx-auto p-5">
+        <div className="movie-card-container">
             <Helmet>
                 <title>Movie | Movie-Details</title>
             </Helmet>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-3 my-6 items-start">
                 {movies.map(movie => (
-                    <div key={movie.id} className="w-full bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition duration-500 hover:shadow-purple-500/25">
+                    <div key={movie.id} className="movie-card bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition duration-500 hover:shadow-purple-500/25 flex flex-col w-full h-[560px]">
                         <div className="relative group">
                             <img
                                 src={movie.poster}
                                 alt={movie.title}
-                                className="w-full h-64 object-cover"
+                                className="w-full h-60 object-cover object-center"
                                 onError={(e) => {
                                     e.target.src = 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=Movie+Poster';
                                 }}
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
                                 <div className="absolute bottom-4 left-4 right-4">
@@ -32,31 +33,33 @@ const MovieCard = ({ movies }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="p-5">
-                            <h2 className="text-white text-xl font-bold mb-3 line-clamp-2 leading-tight">{movie.title}</h2>
-                            <div className="space-y-2 mb-4">
-                                <p className="text-gray-300 text-sm">
+                        <div className="p-4 flex-grow flex flex-col h-[320px]">
+                            <h2 className="text-white text-lg font-bold mb-2 line-clamp-2 leading-tight min-h-[3.5rem]">{movie.title}</h2>
+                            <div className="space-y-1 mb-3 flex-grow">
+                                <p className="text-gray-300 text-sm truncate">
                                     <span className="text-purple-400 font-medium">Year:</span> {movie.releaseYear}
                                 </p>
-                                <p className="text-gray-300 text-sm">
+                                <p className="text-gray-300 text-sm truncate">
                                     <span className="text-purple-400 font-medium">Genre:</span> {movie.genre}
                                 </p>
-                                <p className="text-gray-300 text-sm">
+                                <p className="text-gray-300 text-sm truncate">
                                     <span className="text-purple-400 font-medium">Director:</span> {movie.director}
                                 </p>
-                                <p className="text-green-400 text-lg font-bold">
+                                <p className="text-green-400 text-lg font-bold mt-2">
                                     ${movie.price}
                                 </p>
                             </div>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2 mt-auto">
                                 <Link to={`/ticket/${movie.id}`} className="w-full">
-                                    <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-lg text-sm font-bold hover:from-purple-700 hover:to-pink-700 transition duration-300 transform hover:scale-105 shadow-lg">
-                                        🎫 Get Tickets
+                                    <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg text-sm font-bold hover:from-purple-700 hover:to-pink-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 border-2 border-transparent">
+                                        <span className="text-white text-lg">🎫</span> 
+                                        <span className="text-white font-bold text-base">Get Tickets</span>
                                     </button>
                                 </Link>
                                 <Link to={`/detail/${movie.id}`} className="w-full">
-                                    <button className="w-full bg-transparent border-2 border-purple-500 text-purple-300 px-4 py-3 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition duration-300 transform hover:scale-105">
-                                        📖 View Details
+                                    <button className="w-full bg-transparent border-2 border-purple-500 text-white px-3 py-2 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                                        <span className="text-white text-lg">📖</span> 
+                                        <span className="text-white font-bold text-base">View Details</span>
                                     </button>
                                 </Link>
                             </div>

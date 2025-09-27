@@ -53,7 +53,7 @@ const Signup = () => {
     return (
         <>
             <Helmet>
-                <title>CinemaHub | Sign Up</title>
+                <title>Easy Movie Ticket | Sign Up</title>
             </Helmet>
             <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 {/* Background with movie-themed gradient */}
@@ -70,7 +70,7 @@ const Signup = () => {
                             </div>
                         </div>
                         <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                            Join CinemaHub!
+                            Join Easy Movie Ticket!
                         </h1>
                         <p className="text-gray-300 text-lg">Create your account and start your movie journey</p>
                     </div>

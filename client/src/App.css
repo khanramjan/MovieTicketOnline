@@ -1,0 +1,40 @@
+/* Base responsive layout */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Movie card container fixes */
+.movie-card-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+/* Movie card grid improvements */
+.movie-card {
+  height: 560px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Button text visibility fixes */
+.movie-card button {
+  color: white !important;
+  font-weight: bold !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.movie-card button span {
+  color: white !important;
+  font-weight: bold !important;
+}

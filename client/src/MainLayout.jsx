@@ -5,7 +5,7 @@ import Footer from './component/sheard/footer/Footer';
 
 const MainLayout = () => {
   return (
-    <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
+    <div className="w-screen min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 overflow-x-hidden m-0 p-0 absolute inset-0">
       <Navbar />
       <main className="flex-grow w-full">
         <Outlet />

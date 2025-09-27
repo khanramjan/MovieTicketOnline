@@ -43,8 +43,8 @@ const MovieTab = () => {
     };
 
     return (
-        <div>
-            <Tabs>
+        <div className="mb-16">
+            <Tabs className="mb-16">
                 <TabList>
                     <section className='flex justify-between mb-2'>
                         <div className='flex gap-4'>
@@ -68,7 +68,7 @@ const MovieTab = () => {
                             ) : error ? (
                                 <p>{error}</p>
                             ) : getMoviesByCategory(category).length > 0 ? (
-                                <MovieCard movies={getMoviesByCategory(category).slice(0, 4)} />
+                                <MovieCard movies={getMoviesByCategory(category).slice(0, 5)} />
                             ) : (
                                 <p>No movies available in this category.</p>
                             )}
@@ -76,9 +76,9 @@ const MovieTab = () => {
                     ))}
                 </div>
 
-                <div className='flex justify-center mt-4'>
-                    <button className='btn'>
-                        <Link to='/viewallmovie'>Show All Movies</Link>
+                <div className='flex justify-center my-8 pt-6'>
+                    <button className='btn btn-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg text-lg font-bold hover:from-purple-700 hover:to-pink-700 transition duration-300 shadow-lg'>
+                        <Link to='/viewallmovie' className='text-white'>View All Movies</Link>
                     </button>
                 </div>
             </Tabs>

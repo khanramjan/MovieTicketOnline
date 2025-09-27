@@ -5,7 +5,7 @@ const Search = () => {
     return (
         <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800">
             <Helmet>
-                <title>Search Movies - CinemaHub</title>
+                <title>Search Movies - Easy Movie Ticket</title>
             </Helmet>
             
             <div className="w-full px-4 py-8">

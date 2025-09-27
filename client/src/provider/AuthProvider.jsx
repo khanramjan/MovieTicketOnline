@@ -10,8 +10,8 @@ const AuthProvider = ({ children }) => {
     const demoUsers = [
         {
             id: 1,
-            name: "John Doe",
-            email: "john@example.com",
+            name: "Ramjan Khan",
+            email: "ramjan@example.com",
             password: "password123",
             role: "user",
             favorites: [1, 3, 11, 16, 26],
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
         {
             id: 2,
             name: "Admin User",
-            email: "admin@example.com", 
+            email: "ramjanKhan@example.com", 
             password: "admin123",
             role: "admin",
             favorites: [],

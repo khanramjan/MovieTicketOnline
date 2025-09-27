@@ -66,7 +66,7 @@ const ViewAllMovie = () => {
     return (
         <div className="container mx-auto px-4 py-6 max-w-7xl">
             <Helmet>
-                <title>CinemaHub | All Movies</title>
+                <title>Easy Movie Ticket | All Movies</title>
             </Helmet>
             
             {/* Hero Section */}

@@ -5,12 +5,12 @@ import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     return (
-        <div className='w-full'>
+        <div className='w-full overflow-x-hidden'>
             <Helmet>
-                <title>CinemaHub | Home</title>
+                <title>Easy Movie Ticket | Home</title>
             </Helmet>
             <HeroSlider/>
-            <div className='container mx-auto px-4 py-6 max-w-7xl'>
+            <div className='w-full px-4 py-6 pb-12'>
                 <MovieTab/>
             </div>
         </div>

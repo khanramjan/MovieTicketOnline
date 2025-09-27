@@ -11,7 +11,7 @@ const Footer = () => {
                                 <span className="text-white font-bold text-xl">🎬</span>
                             </div>
                             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                                CinemaHub
+                                Easy Movie Ticket
                             </h1>
                         </div>
                         <p className="text-gray-300 text-lg mb-4 max-w-md">
@@ -19,7 +19,7 @@ const Footer = () => {
                             Book your tickets now and enjoy the magic of movies!
                         </p>
                         <p className="text-gray-400 text-sm">
-                            © 2024 CinemaHub. All rights reserved.
+                            © 2024 Easy Movie Ticket. All rights reserved.
                         </p>
                     </div>
                     

@@ -10,34 +10,53 @@ const MovieCard = ({ movies }) => {
             </Helmet>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                 {movies.map(movie => (
-                    <div key={movie._id} className="w-full bg-gradient-to-r from-purple-800 to-purple-600 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
-                        <div className="relative">
-                        <img
-    src={`http://127.0.0.1:5000${movie.image}`}
-    alt={movie.title}
-    className="w-full h-48 object-cover"
-/>
-                            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
-                                <button className="text-white bg-purple-700 hover:bg-purple-900 rounded-full p-3 focus:outline-none">
-                                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M4.293 9.293a1 1 0 011.414 0L10 13.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
+                    <div key={movie.id} className="w-full bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition duration-500 hover:shadow-purple-500/25">
+                        <div className="relative group">
+                            <img
+                                src={movie.poster}
+                                alt={movie.title}
+                                className="w-full h-64 object-cover"
+                                onError={(e) => {
+                                    e.target.src = 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=Movie+Poster';
+                                }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
+                                <div className="absolute bottom-4 left-4 right-4">
+                                    <div className="flex items-center gap-2 text-yellow-400 mb-2">
+                                        <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                        <span className="text-sm font-medium">{movie.rating}/10</span>
+                                    </div>
+                                    <p className="text-white text-sm font-medium">{movie.duration}</p>
+                                </div>
                             </div>
                         </div>
-                        <div className="p-4">
-                            <h2 className="text-white text-lg font-bold mb-2 truncate">{movie.title}</h2>
-                            <p className="text-gray-300 text-sm mb-1">Release: {movie.releaseDate}</p>
-                            <p className="text-gray-300 text-sm mb-4">Genre: {movie.genre}</p>
-                            <div className="flex space-x-2">
-                            <Link to={`/ticket/${movie._id}`}>
-                            <button className="bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-900 transition duration-300 focus:outline-none">
-                                    Get Tickets
-                                </button>
-                            </Link>
-                                <Link to={`/detail/${movie._id}`}>
-                                    <button className="bg-transparent border border-purple-700 text-purple-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 hover:text-white transition duration-300 focus:outline-none">
-                                        Details
+                        <div className="p-5">
+                            <h2 className="text-white text-xl font-bold mb-3 line-clamp-2 leading-tight">{movie.title}</h2>
+                            <div className="space-y-2 mb-4">
+                                <p className="text-gray-300 text-sm">
+                                    <span className="text-purple-400 font-medium">Year:</span> {movie.releaseYear}
+                                </p>
+                                <p className="text-gray-300 text-sm">
+                                    <span className="text-purple-400 font-medium">Genre:</span> {movie.genre}
+                                </p>
+                                <p className="text-gray-300 text-sm">
+                                    <span className="text-purple-400 font-medium">Director:</span> {movie.director}
+                                </p>
+                                <p className="text-green-400 text-lg font-bold">
+                                    ${movie.price}
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <Link to={`/ticket/${movie.id}`} className="w-full">
+                                    <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-lg text-sm font-bold hover:from-purple-700 hover:to-pink-700 transition duration-300 transform hover:scale-105 shadow-lg">
+                                        🎫 Get Tickets
+                                    </button>
+                                </Link>
+                                <Link to={`/detail/${movie.id}`} className="w-full">
+                                    <button className="w-full bg-transparent border-2 border-purple-500 text-purple-300 px-4 py-3 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition duration-300 transform hover:scale-105">
+                                        📖 View Details
                                     </button>
                                 </Link>
                             </div>

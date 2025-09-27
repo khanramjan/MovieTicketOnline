@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 // Import MovieCard component
 import './style.css';
 import MovieCard from '../sheard/moviecard/MovieCard';
+import movieService from '../../services/movieService';
 
 const MovieTab = () => {
-    const movieCategories = ['show now', 'upcoming'];
+    const movieCategories = ['Now Playing', 'Popular Movies'];
     const [movies, setMovies] = useState([]);
+    const [popularMovies, setPopularMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -17,12 +18,15 @@ const MovieTab = () => {
         const fetchMovies = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get('http://127.0.0.1:5000/api/all');
-                const filteredMovies = response.data.filter(movie => movie.category);
-                setMovies(filteredMovies);
+                const [allMovies, popular] = await Promise.all([
+                    movieService.getAllMovies(),
+                    movieService.getPopularMovies()
+                ]);
+                setMovies(allMovies);
+                setPopularMovies(popular);
             } catch (err) {
                 console.error('Error fetching movies:', err);
-                setError('Error fetching movies');
+                setError('Error loading movies. Please try again.');
             } finally {
                 setIsLoading(false);
             }
@@ -32,7 +36,10 @@ const MovieTab = () => {
     }, []);
 
     const getMoviesByCategory = (category) => {
-        return movies.filter(movie => movie.category?.toLowerCase() === category.toLowerCase());
+        if (category.toLowerCase() === 'popular movies') {
+            return popularMovies;
+        }
+        return movies; // Show all movies for "Now Playing"
     };
 
     return (

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../Main";
+import MainLayout from "../MainLayout";
 import Home from "../component/page/home/Home";
 import About from "../component/page/about/About";
 import Contact from "../component/page/contact/Contact";
@@ -50,7 +50,7 @@ export function createAppRouter(role) {
   return createBrowserRouter([
     {
       path: "/",
-      element: <Main />,
+      element: <MainLayout />,
       children: routes,
     },
   ]);

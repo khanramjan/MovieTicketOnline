@@ -1,6 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react';
-import axios from 'axios'; // Importing Axios
-import Cookies from 'js-cookie';
 
 export const AuthContext = createContext(null);
 
@@ -8,13 +6,61 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = 'http://127.0.0.1:5000/user'; // Your backend API URL
+    // Demo users for static site
+    const demoUsers = [
+        {
+            id: 1,
+            name: "John Doe",
+            email: "john@example.com",
+            password: "password123",
+            role: "user",
+            favorites: [1, 3, 11, 16, 26],
+            bookings: []
+        },
+        {
+            id: 2,
+            name: "Admin User",
+            email: "admin@example.com", 
+            password: "admin123",
+            role: "admin",
+            favorites: [],
+            bookings: []
+        }
+    ];
 
-    const createUser = async (name,email, password) => {
+    const createUser = async (name, email, password) => {
         setLoading(true);
         try {
-            const response = await axios.post(`${API_URL}/signup`, {name, email, password });
-            setUser(response.data.user);
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Check if user already exists
+            const existingUser = demoUsers.find(u => u.email === email);
+            if (existingUser) {
+                throw new Error('User already exists');
+            }
+
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password,
+                role: "user",
+                favorites: [],
+                bookings: []
+            };
+
+            // Store in localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Set current user (remove password from user object)
+            const { password: _, ...userWithoutPassword } = newUser;
+            setUser(userWithoutPassword);
+            localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
+            
         } catch (error) {
             console.error('Error creating user:', error);
             throw error;
@@ -26,10 +72,27 @@ const AuthProvider = ({ children }) => {
     const logIn = async (email, password) => {
         setLoading(true);
         try {
-            const response = await axios.post(`${API_URL}/login`, { email, password });
-            const { token } = response.data;
-            Cookies.set('token', token); // Store token in cookies
-            setUser(response.data.user);
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            // Check demo users first
+            let foundUser = demoUsers.find(u => u.email === email && u.password === password);
+            
+            // If not found in demo users, check localStorage
+            if (!foundUser) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                foundUser = users.find(u => u.email === email && u.password === password);
+            }
+
+            if (!foundUser) {
+                throw new Error('Invalid email or password');
+            }
+
+            // Set current user (remove password from user object)
+            const { password: _, ...userWithoutPassword } = foundUser;
+            setUser(userWithoutPassword);
+            localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
+            
         } catch (error) {
             console.error('Error logging in:', error);
             throw error;
@@ -38,45 +101,25 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    const logOut = async () => {
-        setLoading(true);
-        try {
-            await axios.post(`${API_URL}/logout`);
-            Cookies.remove('token');
-            setUser(null);
-        } catch (error) {
-            console.error('Error logging out:', error);
-        } finally {
-            setLoading(false);
-        }
+    const logOut = () => {
+        setUser(null);
+        localStorage.removeItem('currentUser');
     };
 
     useEffect(() => {
-        const fetchUser = async () => {
-            setLoading(true);
-            const token = Cookies.get('token'); // Check if token exists
-            if (!token) {
-                setLoading(false);
-                return; // No token, exit early
+        setLoading(true);
+        try {
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                setUser(JSON.parse(savedUser));
             }
-
-            try {
-                const response = await axios.get(`${API_URL}/me`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`, // Send token in the Authorization header
-                    },
-                    withCredentials: true,
-                });
-                setUser(response.data.user);
-            } catch (error) {
-                console.error('Error fetching user:', error);
-                Cookies.remove('token'); // Clear token if there's an error
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUser(); // Fetch user on initial load
+        } catch (error) {
+            console.error('Error loading user from localStorage:', error);
+            localStorage.removeItem('currentUser');
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
     const authInfo = {

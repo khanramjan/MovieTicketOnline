@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "name": "easy-movie-ticket",
-  "buildCommand": "cd client && npm run build",
-  "outputDirectory": "client/dist",
-  "installCommand": "cd client && npm install",
-  "devCommand": "cd client && npm run dev",
-  "framework": "vite",
+  "builds": [
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
+      }
+    }
+  ],
   "routes": [
     {
       "handle": "filesystem"

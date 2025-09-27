@@ -14,8 +14,8 @@ const Login = () => {
     const location = useLocation();
     
 
-    // Get the 'from' location or set it to home if undefined
-   const from=location.state?.from?.pathname || "/"
+    // Get the 'from' location or check localStorage for redirect path
+    const from = location.state?.from?.pathname || localStorage.getItem('redirectPath') || "/"
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +33,9 @@ const Login = () => {
                 timer: 1300,
             });
             e.target.reset()
-            navigate(from,{replace:true}) // Navigate to the page the user came from
+            // Clear the redirect path from localStorage after successful login
+            localStorage.removeItem('redirectPath');
+            navigate(from, {replace: true}) // Navigate to the page the user came from
         } catch (error) {
             Swal.fire({
                 icon: 'error',

@@ -1,8 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { AuthContext } from '../../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const MovieCard = ({ movies }) => {
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleGetTickets = (movieId, movieTitle) => {
+        if (!user) {
+            Swal.fire({
+                title: 'Authentication Required',
+                text: `Please login to book tickets for "${movieTitle}"`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#7c3aed',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Login Now',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem('redirectPath', `/ticket/${movieId}`);
+                    navigate('/login');
+                }
+            });
+        } else {
+            navigate(`/ticket/${movieId}`);
+        }
+    };
+
     return (
         <div className="movie-card-container">
             <Helmet>
@@ -50,12 +77,15 @@ const MovieCard = ({ movies }) => {
                                 </p>
                             </div>
                             <div className="flex flex-col gap-2 mt-auto">
-                                <Link to={`/ticket/${movie.id}`} className="w-full">
-                                    <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg text-sm font-bold hover:from-purple-700 hover:to-pink-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 border-2 border-transparent">
-                                        <span className="text-white text-lg">🎫</span> 
-                                        <span className="text-white font-bold text-base">Get Tickets</span>
-                                    </button>
-                                </Link>
+                                <button 
+                                    onClick={() => handleGetTickets(movie.id, movie.title)}
+                                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg text-sm font-bold hover:from-purple-700 hover:to-pink-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 border-2 border-transparent"
+                                >
+                                    <span className="text-white text-lg">🎫</span> 
+                                    <span className="text-white font-bold text-base">
+                                        {user ? 'Get Tickets' : 'Login to Book'}
+                                    </span>
+                                </button>
                                 <Link to={`/detail/${movie.id}`} className="w-full">
                                     <button className="w-full bg-transparent border-2 border-purple-500 text-white px-3 py-2 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
                                         <span className="text-white text-lg">📖</span> 
